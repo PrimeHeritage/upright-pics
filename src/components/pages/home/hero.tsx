@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils'
 import type { HeroContent } from '@/types'
 
 const SLIDE_MS = 6500
-const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function Hero({ content }: { content: HeroContent }) {
   const reduce = useReducedMotion()
@@ -68,11 +67,9 @@ export default function Hero({ content }: { content: HeroContent }) {
           </span>
         </h1>
 
-        <m.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7, ease: EASE }}
-          className="mt-8 flex flex-col gap-8 md:mt-10 md:flex-row md:items-end md:justify-between"
+        <div
+          style={{ animationDelay: '0.5s' }}
+          className="animate-fade-up mt-8 flex flex-col gap-8 md:mt-10 md:flex-row md:items-end md:justify-between"
         >
           <div className="max-w-md">
             <p className="text-lg leading-relaxed text-paper/80 md:text-xl">{content.subheadline}</p>
@@ -114,7 +111,7 @@ export default function Hero({ content }: { content: HeroContent }) {
               ))}
             </div>
           ) : null}
-        </m.div>
+        </div>
       </div>
     </section>
   )

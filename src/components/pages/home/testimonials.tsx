@@ -16,13 +16,12 @@ export default function Testimonials({ testimonials }: { testimonials: Array<Tes
       <div className="grid gap-12 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-4">
           <h2 className="text-label text-gold">Kind words</h2>
-          <ul className="mt-8 flex gap-6 overflow-x-auto md:flex-col md:gap-4" role="tablist">
+          <ul className="mt-8 flex gap-6 overflow-x-auto md:flex-col md:gap-4" aria-label="Choose a testimonial">
             {testimonials.map((t, i) => (
               <li key={t.id} className="shrink-0">
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={i === index}
+                  aria-pressed={i === index}
                   onClick={() => setIndex(i)}
                   className={cn(
                     'text-left transition-colors duration-300',
@@ -37,7 +36,7 @@ export default function Testimonials({ testimonials }: { testimonials: Array<Tes
           </ul>
         </div>
 
-        <figure className="relative min-h-[16rem] md:col-span-8 md:min-h-[20rem]">
+        <figure className="relative min-h-[16rem] md:col-span-8 md:min-h-[20rem]" aria-live="polite">
           <AnimatePresence mode="wait">
             <m.div
               key={current.id}

@@ -63,10 +63,11 @@ function Word({
   range: [number, number]
   still: boolean
 }) {
-  const opacity = useTransform(progress, range, [0.16, 1])
+  // Starts at #6b665f (3.46:1, AA for large text) so the copy stays readable before it "develops".
+  const color = useTransform(progress, range, ['#6b665f', '#eae6df'])
   return (
     <>
-      <m.span style={{ opacity: still ? 1 : opacity }}>{children}</m.span>{' '}
+      <m.span style={{ color: still ? undefined : color }}>{children}</m.span>{' '}
     </>
   )
 }

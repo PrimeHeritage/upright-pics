@@ -3,6 +3,8 @@ import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/reac
 import type { QueryClient } from '@tanstack/react-query'
 
 import appCss from '@/styles.css?url'
+import bodoniFont from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2?url'
+import hankenFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url'
 
 // Toasts are only used after user actions, so the library loads lazily.
 const Toaster = lazy(() => import('@/components/ui/sonner').then((m) => ({ default: m.Toaster })))
@@ -32,6 +34,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
+      // Headline + body fonts: preloading avoids late swaps that shift the layout.
+      { rel: 'preload', href: bodoniFont, as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
+      { rel: 'preload', href: hankenFont, as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
       { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
       { rel: 'icon', href: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },

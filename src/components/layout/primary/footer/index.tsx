@@ -74,9 +74,10 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
       </div>
 
       <div className="container-site" aria-hidden>
-        <p className="font-display text-[22vw] leading-[0.8] tracking-[-0.04em] text-paper/[0.04] select-none md:text-[17vw]">
-          Upright
-        </p>
+        <p
+          data-text="Upright"
+          className="font-display text-[22vw] leading-[0.8] tracking-[-0.04em] text-paper/[0.04] select-none before:content-[attr(data-text)] md:text-[17vw]"
+        />
       </div>
 
       <div className="container-site flex flex-col gap-2 border-t border-line py-6 text-xs text-smoke md:flex-row md:justify-between">

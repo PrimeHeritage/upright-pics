@@ -228,3 +228,32 @@
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
+
+/*
+ * Above-the-fold entrance animations run in CSS so they start at first paint,
+ * before hydration. They begin at a near-zero (not zero) opacity so browsers
+ * count the text as painted for LCP.
+ */
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0.01;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 1s var(--ease-out-expo) both;
+}
