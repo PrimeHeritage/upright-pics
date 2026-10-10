@@ -21,7 +21,6 @@ import { Route as AdminResetPasswordRouteImport } from './routes/admin/reset-pas
 import { Route as PrimaryWorkIndexRouteImport } from './routes/_primary/work.index'
 import { Route as PrimaryWorkSlugRouteImport } from './routes/_primary/work.$slug'
 import { Route as AdminDashboardIndexRouteImport } from './routes/admin/_dashboard/index'
-import { Route as AdminDashboardAlbumsRouteImport } from './routes/admin/_dashboard/albums'
 import { Route as AdminDashboardCategoriesRouteImport } from './routes/admin/_dashboard/categories'
 import { Route as AdminDashboardContentRouteImport } from './routes/admin/_dashboard/content'
 import { Route as AdminDashboardInquiriesRouteImport } from './routes/admin/_dashboard/inquiries'
@@ -29,6 +28,8 @@ import { Route as AdminDashboardPackagesRouteImport } from './routes/admin/_dash
 import { Route as AdminDashboardServicesRouteImport } from './routes/admin/_dashboard/services'
 import { Route as AdminDashboardSettingsRouteImport } from './routes/admin/_dashboard/settings'
 import { Route as AdminDashboardTestimonialsRouteImport } from './routes/admin/_dashboard/testimonials'
+import { Route as AdminDashboardAlbumsIndexRouteImport } from './routes/admin/_dashboard/albums.index'
+import { Route as AdminDashboardAlbumsAlbumIdRouteImport } from './routes/admin/_dashboard/albums.$albumId'
 
 const PrimaryRoute = PrimaryRouteImport.update({
   id: '/_primary',
@@ -89,11 +90,6 @@ const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminDashboardRoute,
 } as any)
-const AdminDashboardAlbumsRoute = AdminDashboardAlbumsRouteImport.update({
-  id: '/albums',
-  path: '/albums',
-  getParentRoute: () => AdminDashboardRoute,
-} as any)
 const AdminDashboardCategoriesRoute =
   AdminDashboardCategoriesRouteImport.update({
     id: '/categories',
@@ -131,6 +127,18 @@ const AdminDashboardTestimonialsRoute =
     path: '/testimonials',
     getParentRoute: () => AdminDashboardRoute,
   } as any)
+const AdminDashboardAlbumsIndexRoute =
+  AdminDashboardAlbumsIndexRouteImport.update({
+    id: '/albums/',
+    path: '/albums/',
+    getParentRoute: () => AdminDashboardRoute,
+  } as any)
+const AdminDashboardAlbumsAlbumIdRoute =
+  AdminDashboardAlbumsAlbumIdRouteImport.update({
+    id: '/albums/$albumId',
+    path: '/albums/$albumId',
+    getParentRoute: () => AdminDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PrimaryIndexRoute
@@ -142,7 +150,6 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
-  '/admin/albums': typeof AdminDashboardAlbumsRoute
   '/admin/categories': typeof AdminDashboardCategoriesRoute
   '/admin/content': typeof AdminDashboardContentRoute
   '/admin/inquiries': typeof AdminDashboardInquiriesRoute
@@ -152,6 +159,8 @@ export interface FileRoutesByFullPath {
   '/admin/testimonials': typeof AdminDashboardTestimonialsRoute
   '/work/': typeof PrimaryWorkIndexRoute
   '/admin/': typeof AdminDashboardIndexRoute
+  '/admin/albums/$albumId': typeof AdminDashboardAlbumsAlbumIdRoute
+  '/admin/albums/': typeof AdminDashboardAlbumsIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PrimaryAboutRoute
@@ -162,7 +171,6 @@ export interface FileRoutesByTo {
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/': typeof PrimaryIndexRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
-  '/admin/albums': typeof AdminDashboardAlbumsRoute
   '/admin/categories': typeof AdminDashboardCategoriesRoute
   '/admin/content': typeof AdminDashboardContentRoute
   '/admin/inquiries': typeof AdminDashboardInquiriesRoute
@@ -172,6 +180,8 @@ export interface FileRoutesByTo {
   '/admin/testimonials': typeof AdminDashboardTestimonialsRoute
   '/work': typeof PrimaryWorkIndexRoute
   '/admin': typeof AdminDashboardIndexRoute
+  '/admin/albums/$albumId': typeof AdminDashboardAlbumsAlbumIdRoute
+  '/admin/albums': typeof AdminDashboardAlbumsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -185,7 +195,6 @@ export interface FileRoutesById {
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/_primary/': typeof PrimaryIndexRoute
   '/_primary/work/$slug': typeof PrimaryWorkSlugRoute
-  '/admin/_dashboard/albums': typeof AdminDashboardAlbumsRoute
   '/admin/_dashboard/categories': typeof AdminDashboardCategoriesRoute
   '/admin/_dashboard/content': typeof AdminDashboardContentRoute
   '/admin/_dashboard/inquiries': typeof AdminDashboardInquiriesRoute
@@ -195,6 +204,8 @@ export interface FileRoutesById {
   '/admin/_dashboard/testimonials': typeof AdminDashboardTestimonialsRoute
   '/_primary/work/': typeof PrimaryWorkIndexRoute
   '/admin/_dashboard/': typeof AdminDashboardIndexRoute
+  '/admin/_dashboard/albums/$albumId': typeof AdminDashboardAlbumsAlbumIdRoute
+  '/admin/_dashboard/albums/': typeof AdminDashboardAlbumsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -208,7 +219,6 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/work/$slug'
-    | '/admin/albums'
     | '/admin/categories'
     | '/admin/content'
     | '/admin/inquiries'
@@ -218,6 +228,8 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/work/'
     | '/admin/'
+    | '/admin/albums/$albumId'
+    | '/admin/albums/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
@@ -228,7 +240,6 @@ export interface FileRouteTypes {
     | '/admin/reset-password'
     | '/'
     | '/work/$slug'
-    | '/admin/albums'
     | '/admin/categories'
     | '/admin/content'
     | '/admin/inquiries'
@@ -238,6 +249,8 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/work'
     | '/admin'
+    | '/admin/albums/$albumId'
+    | '/admin/albums'
   id:
     | '__root__'
     | '/_primary'
@@ -250,7 +263,6 @@ export interface FileRouteTypes {
     | '/admin/reset-password'
     | '/_primary/'
     | '/_primary/work/$slug'
-    | '/admin/_dashboard/albums'
     | '/admin/_dashboard/categories'
     | '/admin/_dashboard/content'
     | '/admin/_dashboard/inquiries'
@@ -260,6 +272,8 @@ export interface FileRouteTypes {
     | '/admin/_dashboard/testimonials'
     | '/_primary/work/'
     | '/admin/_dashboard/'
+    | '/admin/_dashboard/albums/$albumId'
+    | '/admin/_dashboard/albums/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -356,13 +370,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardIndexRouteImport
       parentRoute: typeof AdminDashboardRoute
     }
-    '/admin/_dashboard/albums': {
-      id: '/admin/_dashboard/albums'
-      path: '/albums'
-      fullPath: '/admin/albums'
-      preLoaderRoute: typeof AdminDashboardAlbumsRouteImport
-      parentRoute: typeof AdminDashboardRoute
-    }
     '/admin/_dashboard/categories': {
       id: '/admin/_dashboard/categories'
       path: '/categories'
@@ -412,6 +419,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardTestimonialsRouteImport
       parentRoute: typeof AdminDashboardRoute
     }
+    '/admin/_dashboard/albums/': {
+      id: '/admin/_dashboard/albums/'
+      path: '/albums'
+      fullPath: '/admin/albums/'
+      preLoaderRoute: typeof AdminDashboardAlbumsIndexRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/albums/$albumId': {
+      id: '/admin/_dashboard/albums/$albumId'
+      path: '/albums/$albumId'
+      fullPath: '/admin/albums/$albumId'
+      preLoaderRoute: typeof AdminDashboardAlbumsAlbumIdRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
   }
 }
 
@@ -437,7 +458,6 @@ const PrimaryRouteWithChildren =
   PrimaryRoute._addFileChildren(PrimaryRouteChildren)
 
 interface AdminDashboardRouteChildren {
-  AdminDashboardAlbumsRoute: typeof AdminDashboardAlbumsRoute
   AdminDashboardCategoriesRoute: typeof AdminDashboardCategoriesRoute
   AdminDashboardContentRoute: typeof AdminDashboardContentRoute
   AdminDashboardInquiriesRoute: typeof AdminDashboardInquiriesRoute
@@ -446,10 +466,11 @@ interface AdminDashboardRouteChildren {
   AdminDashboardSettingsRoute: typeof AdminDashboardSettingsRoute
   AdminDashboardTestimonialsRoute: typeof AdminDashboardTestimonialsRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminDashboardAlbumsAlbumIdRoute: typeof AdminDashboardAlbumsAlbumIdRoute
+  AdminDashboardAlbumsIndexRoute: typeof AdminDashboardAlbumsIndexRoute
 }
 
 const AdminDashboardRouteChildren: AdminDashboardRouteChildren = {
-  AdminDashboardAlbumsRoute: AdminDashboardAlbumsRoute,
   AdminDashboardCategoriesRoute: AdminDashboardCategoriesRoute,
   AdminDashboardContentRoute: AdminDashboardContentRoute,
   AdminDashboardInquiriesRoute: AdminDashboardInquiriesRoute,
@@ -458,6 +479,8 @@ const AdminDashboardRouteChildren: AdminDashboardRouteChildren = {
   AdminDashboardSettingsRoute: AdminDashboardSettingsRoute,
   AdminDashboardTestimonialsRoute: AdminDashboardTestimonialsRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminDashboardAlbumsAlbumIdRoute: AdminDashboardAlbumsAlbumIdRoute,
+  AdminDashboardAlbumsIndexRoute: AdminDashboardAlbumsIndexRoute,
 }
 
 const AdminDashboardRouteWithChildren = AdminDashboardRoute._addFileChildren(

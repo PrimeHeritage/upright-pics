@@ -26,7 +26,7 @@ export type Database = {
       albums: {
         Row: {
           category_id: string | null
-          cover: Json
+          cover: Json | null
           created_at: string
           featured: boolean
           id: string
@@ -42,7 +42,7 @@ export type Database = {
         }
         Insert: {
           category_id?: string | null
-          cover: Json
+          cover?: Json | null
           created_at?: string
           featured?: boolean
           id?: string
@@ -58,7 +58,7 @@ export type Database = {
         }
         Update: {
           category_id?: string | null
-          cover?: Json
+          cover?: Json | null
           created_at?: string
           featured?: boolean
           id?: string

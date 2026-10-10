@@ -40,8 +40,11 @@ export function InquiryForm({ services, defaultService, whatsapp, businessName }
     },
     validators: { onSubmit: inquirySchema, onBlur: inquirySchema },
     onSubmit: async ({ value }) => {
-      await mutation.mutateAsync({ ...value, elapsedMs: Date.now() - openedAt.current })
-      setSubmittedName(value.name.split(' ')[0])
+      // Errors are shown via mutation.isError; don't leave the rejection unhandled.
+      const ok = await mutation
+        .mutateAsync({ ...value, elapsedMs: Date.now() - openedAt.current })
+        .then(() => true, () => false)
+      if (ok) setSubmittedName(value.name.split(' ')[0])
     },
   })
 

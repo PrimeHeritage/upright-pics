@@ -13,7 +13,8 @@ export default function SecuritySettings({ email }: { email: string }) {
     defaultValues: { current: '', password: '', confirm: '' },
     validators: { onSubmit: changePasswordSchema },
     onSubmit: async ({ value, formApi }) => {
-      await change.mutateAsync(value)
+      const ok = await change.mutateAsync(value).then(() => true, () => false)
+      if (!ok) return
       formApi.reset()
       toast.success('Password changed. Use the new one next time you sign in.')
     },

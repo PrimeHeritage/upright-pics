@@ -14,7 +14,8 @@ export default function ResetPassword({ linkValid }: { linkValid: boolean }) {
     defaultValues: { password: '', confirm: '' },
     validators: { onSubmit: resetPasswordSchema },
     onSubmit: async ({ value }) => {
-      await setPassword.mutateAsync(value)
+      const ok = await setPassword.mutateAsync(value).then(() => true, () => false)
+      if (!ok) return
       toast.success('Password updated')
       await router.navigate({ to: '/admin' })
     },

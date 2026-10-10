@@ -13,7 +13,9 @@ export default function Login({ redirect }: { redirect?: string }) {
     defaultValues: { email: '', password: '' },
     validators: { onSubmit: signInSchema },
     onSubmit: async ({ value }) => {
-      await signIn.mutateAsync(value)
+      // Errors are shown via signIn.isError; don't leave the rejection unhandled.
+      const ok = await signIn.mutateAsync(value).then(() => true, () => false)
+      if (!ok) return
       // Only follow same-site admin redirects.
       const target = redirect?.startsWith('/admin') ? redirect : '/admin'
       await router.invalidate()

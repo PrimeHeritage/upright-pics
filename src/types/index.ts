@@ -124,7 +124,9 @@ export interface Testimonial {
   sortOrder: number
 }
 
-export type InquiryStatus = 'new' | 'read' | 'replied' | 'archived'
+export const INQUIRY_STATUSES = ['new', 'read', 'replied', 'archived'] as const
+
+export type InquiryStatus = (typeof INQUIRY_STATUSES)[number]
 
 export interface Inquiry {
   id: string

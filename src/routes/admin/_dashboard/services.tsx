@@ -1,14 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ComingSoon } from '@/components/shared/admin/coming-soon'
+import Services from '@/components/pages/admin/services'
+import { adminServicesQuery } from '@/hooks/api/admin/catalog'
 import { adminHead } from '@/lib/admin-route'
 
 export const Route = createFileRoute('/admin/_dashboard/services')({
+  loader: ({ context }) =>
+    Promise.all([context.queryClient.ensureQueryData(adminServicesQuery())]),
   head: () => adminHead('Services'),
-  component: () => (
-    <ComingSoon
-      title="Services"
-      description="The services listed on the website, with photos and descriptions."
-    />
-  ),
+  component: Services,
 })

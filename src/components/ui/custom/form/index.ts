@@ -2,6 +2,8 @@ import { createFormHook } from '@tanstack/react-form'
 
 import { fieldContext, formContext } from './context'
 import { SubmitButton, SwitchField, TextField, TextareaField } from './fields'
+import { ImageField, ImageListField } from './image-fields'
+import { SaveBar, UnsavedChangesGuard } from './form-chrome'
 
 /**
  * App-wide TanStack Form hook. Usage:
@@ -12,8 +14,8 @@ import { SubmitButton, SwitchField, TextField, TextareaField } from './fields'
 export const { useAppForm, withForm } = createFormHook({
   fieldContext,
   formContext,
-  fieldComponents: { TextField, TextareaField, SwitchField },
-  formComponents: { SubmitButton },
+  fieldComponents: { TextField, TextareaField, SwitchField, ImageField, ImageListField },
+  formComponents: { SubmitButton, SaveBar, UnsavedChangesGuard },
 })
 
 export { FieldShell } from './fields'
