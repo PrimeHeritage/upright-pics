@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react'
 import { MessageCircle } from 'lucide-react'
 
 import { whatsappLink } from '@/lib/utils'
@@ -20,7 +20,7 @@ export function WhatsAppButton({ phone, businessName }: { phone: string; busines
   return (
     <AnimatePresence>
       {visible ? (
-        <motion.a
+        <m.a
           href={href}
           target="_blank"
           rel="noreferrer"
@@ -32,7 +32,7 @@ export function WhatsAppButton({ phone, businessName }: { phone: string; busines
         >
           <MessageCircle className="size-4 text-gold" strokeWidth={1.75} />
           Chat on WhatsApp
-        </motion.a>
+        </m.a>
       ) : null}
     </AnimatePresence>
   )

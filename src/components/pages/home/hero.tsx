@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { AnimatePresence, m, useReducedMotion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 
 import { MediaImage } from '@/components/shared/media-image'
@@ -30,7 +30,7 @@ export default function Hero({ content }: { content: HeroContent }) {
       <div className="absolute inset-0 -z-10 overflow-hidden md:left-[38%]">
         <AnimatePresence initial={false}>
           {current ? (
-            <motion.div
+            <m.div
               key={current.src}
               className="absolute inset-0"
               initial={{ opacity: 0 }}
@@ -38,7 +38,7 @@ export default function Hero({ content }: { content: HeroContent }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 1.6, ease: 'easeInOut' }}
             >
-              <motion.div
+              <m.div
                 className="absolute inset-0"
                 initial={reduce ? false : { scale: 1.12 }}
                 animate={{ scale: 1 }}
@@ -51,8 +51,8 @@ export default function Hero({ content }: { content: HeroContent }) {
                   sizes="(min-width: 768px) 62vw, 100vw"
                   imgClassName="object-[50%_25%]"
                 />
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           ) : null}
         </AnimatePresence>
         {/* Scrims keep type legible over any photo */}
@@ -68,7 +68,7 @@ export default function Hero({ content }: { content: HeroContent }) {
           </span>
         </h1>
 
-        <motion.div
+        <m.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: EASE }}
@@ -114,7 +114,7 @@ export default function Hero({ content }: { content: HeroContent }) {
               ))}
             </div>
           ) : null}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

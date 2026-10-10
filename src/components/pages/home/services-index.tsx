@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react'
+import { AnimatePresence, m, useMotionValue, useSpring } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 
 import { MediaImage } from '@/components/shared/media-image'
@@ -68,7 +68,7 @@ export default function ServicesIndex({ services }: { services: Array<Service> }
 
           <AnimatePresence>
             {active?.cover ? (
-              <motion.div
+              <m.div
                 key="preview"
                 aria-hidden
                 className="pointer-events-none absolute top-0 left-0 z-10 hidden w-56 md:block lg:w-64"
@@ -79,7 +79,7 @@ export default function ServicesIndex({ services }: { services: Array<Service> }
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
                 <AnimatePresence mode="popLayout" initial={false}>
-                  <motion.div
+                  <m.div
                     key={active.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -87,9 +87,9 @@ export default function ServicesIndex({ services }: { services: Array<Service> }
                     transition={{ duration: 0.25 }}
                   >
                     <MediaImage image={active.cover} sizes="256px" className="aspect-[4/5]" />
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
-              </motion.div>
+              </m.div>
             ) : null}
           </AnimatePresence>
         </ul>

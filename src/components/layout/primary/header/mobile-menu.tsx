@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 
 import { SocialLinks } from '@/components/shared/social-links'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
@@ -33,7 +33,7 @@ export default function MobileMenu({ settings }: { settings: SiteSettings }) {
         <nav aria-label="Mobile" className="flex flex-1 flex-col">
           <ul className="flex flex-col gap-2">
             {links.map((item, i) => (
-              <motion.li
+              <m.li
                 key={item.label}
                 initial={{ opacity: 0, y: 24 }}
                 animate={open ? { opacity: 1, y: 0 } : {}}
@@ -47,7 +47,7 @@ export default function MobileMenu({ settings }: { settings: SiteSettings }) {
                 >
                   {item.label}
                 </Link>
-              </motion.li>
+              </m.li>
             ))}
           </ul>
           <div className="mt-auto space-y-5 border-t border-line pt-8">

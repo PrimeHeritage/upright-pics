@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useInView } from 'motion/react'
+import { AnimatePresence, m, useInView } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 
 import { MediaImage } from '@/components/shared/media-image'
@@ -23,7 +23,7 @@ export default function ServiceList({ services }: { services: Array<Service> }) 
           <div className="sticky top-28 aspect-[4/5] overflow-hidden">
             <AnimatePresence initial={false}>
               {active.cover ? (
-                <motion.div
+                <m.div
                   key={active.id}
                   className="absolute inset-0"
                   initial={{ opacity: 0, scale: 1.04 }}
@@ -32,7 +32,7 @@ export default function ServiceList({ services }: { services: Array<Service> }) 
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <MediaImage image={active.cover} fill sizes="40vw" />
-                </motion.div>
+                </m.div>
               ) : null}
             </AnimatePresence>
           </div>

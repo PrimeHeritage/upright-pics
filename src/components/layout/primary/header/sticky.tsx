@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { m, useMotionValueEvent, useScroll } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 
@@ -29,7 +29,7 @@ export default function HeaderShell({
   })
 
   return (
-    <motion.header
+    <m.header
       initial={false}
       animate={{ y: hidden ? '-100%' : '0%' }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -41,6 +41,6 @@ export default function HeaderShell({
       )}
     >
       {children}
-    </motion.header>
+    </m.header>
   )
 }

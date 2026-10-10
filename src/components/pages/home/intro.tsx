@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { m, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import type { MotionValue } from 'motion/react'
 
 import { MediaImage } from '@/components/shared/media-image'
@@ -66,7 +66,7 @@ function Word({
   const opacity = useTransform(progress, range, [0.16, 1])
   return (
     <>
-      <motion.span style={{ opacity: still ? 1 : opacity }}>{children}</motion.span>{' '}
+      <m.span style={{ opacity: still ? 1 : opacity }}>{children}</m.span>{' '}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
@@ -71,7 +71,7 @@ export default function Lightbox({ images, index, onIndexChange, title }: Lightb
         <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 md:px-20">
           <AnimatePresence mode="wait" initial={false}>
             {current ? (
-              <motion.img
+              <m.img
                 key={current.src}
                 src={isResizable(current.src) ? imageUrl(current.src, 1920) : current.src}
                 srcSet={isResizable(current.src) ? imageSrcSet(current, 2400) : undefined}

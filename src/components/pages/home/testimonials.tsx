@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 
 import { PageSection } from '@/components/ui/custom/page-section'
 import { cn } from '@/lib/utils'
@@ -39,7 +39,7 @@ export default function Testimonials({ testimonials }: { testimonials: Array<Tes
 
         <figure className="relative min-h-[16rem] md:col-span-8 md:min-h-[20rem]">
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={current.id}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export default function Testimonials({ testimonials }: { testimonials: Array<Tes
               <figcaption className="mt-8 text-ash md:hidden">
                 {current.clientName}, {current.context}
               </figcaption>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </figure>
       </div>

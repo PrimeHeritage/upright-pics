@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'motion/react'
+import { m, useReducedMotion } from 'motion/react'
 import type { HTMLMotionProps } from 'motion/react'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -13,7 +13,7 @@ interface RevealProps extends HTMLMotionProps<'div'> {
 export function Reveal({ delay = 0, y = 28, amount = 0.25, children, ...props }: RevealProps) {
   const reduce = useReducedMotion()
   return (
-    <motion.div
+    <m.div
       initial={reduce ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount }}
@@ -21,7 +21,7 @@ export function Reveal({ delay = 0, y = 28, amount = 0.25, children, ...props }:
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -43,7 +43,7 @@ export function RevealWords({
     <span className={className}>
       {words.map((word, i) => (
         <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
-          <motion.span
+          <m.span
             className="inline-block"
             initial={reduce ? false : { y: '110%' }}
             animate={{ y: 0 }}
@@ -51,7 +51,7 @@ export function RevealWords({
           >
             {word}
             {i < words.length - 1 ? ' ' : ''}
-          </motion.span>
+          </m.span>
         </span>
       ))}
     </span>

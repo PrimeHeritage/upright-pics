@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { m, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowUpRight, Play } from 'lucide-react'
 
 import { MediaImage } from '@/components/shared/media-image'
@@ -24,9 +24,9 @@ export default function Showreel({ content }: { content: ShowreelContent }) {
 
   return (
     <section ref={ref} className="relative isolate flex min-h-[90dvh] items-end overflow-hidden">
-      <motion.div className="absolute inset-0 -z-10" style={{ scale: reduce ? 1 : scale }}>
+      <m.div className="absolute inset-0 -z-10" style={{ scale: reduce ? 1 : scale }}>
         <MediaImage image={content.poster} fill sizes="100vw" />
-      </motion.div>
+      </m.div>
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/30 to-ink/40" />
 
       <div className="container-site flex w-full flex-col gap-10 pt-32 pb-16 md:flex-row md:items-end md:justify-between md:pb-20">

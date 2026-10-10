@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { m, useReducedMotion, useScroll, useTransform } from 'motion/react'
 
 import { MediaImage } from '@/components/shared/media-image'
 import { Reveal } from '@/components/ui/custom/reveal'
@@ -49,7 +49,7 @@ function PinnedPan({ content }: { content: ProcessContent }) {
   return (
     <div ref={sectionRef} className="relative hidden md:block" style={{ height: `calc(100dvh + ${distance}px)` }}>
       <div className="sticky top-0 flex h-[100dvh] flex-col justify-center overflow-hidden">
-        <motion.div ref={trackRef} style={{ x }} className="flex w-max items-stretch gap-8 pr-[8vw] pl-[max(3rem,calc((100vw-1440px)/2+3rem))]">
+        <m.div ref={trackRef} style={{ x }} className="flex w-max items-stretch gap-8 pr-[8vw] pl-[max(3rem,calc((100vw-1440px)/2+3rem))]">
           <div className="flex w-[32vw] max-w-md shrink-0 flex-col justify-center pr-8">
             <h2 className="font-display text-6xl leading-[1.02] lg:text-7xl">{content.heading}</h2>
             <p className="mt-8 text-lg leading-relaxed text-ash">{content.intro}</p>
@@ -57,10 +57,10 @@ function PinnedPan({ content }: { content: ProcessContent }) {
           {content.steps.map((step, i) => (
             <StepPanel key={step.title} step={step} index={i} />
           ))}
-        </motion.div>
+        </m.div>
         <div className="container-site mt-12">
           <div className="relative h-px bg-line">
-            <motion.div style={{ width: progress }} className="absolute inset-y-0 left-0 bg-gold" />
+            <m.div style={{ width: progress }} className="absolute inset-y-0 left-0 bg-gold" />
           </div>
         </div>
       </div>

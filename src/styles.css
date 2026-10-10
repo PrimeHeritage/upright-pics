@@ -23,7 +23,7 @@
   --surface-3: #252320;
   --paper: #eae6df;
   --ash: #948e85;
-  --smoke: #6b665f;
+  --smoke: #857f76; /* 4.96:1 on ink (WCAG AA for small text) */
   --gold: #c8a35a;
   --gold-soft: #e0c27e;
   --line: rgb(234 230 223 / 0.1);
