@@ -47,6 +47,10 @@ export function MediaImage({
           src={imagePlaceholder(image.src)}
           alt=""
           aria-hidden
+          // Lazy so React does not emit a <link rel="preload"> for every placeholder.
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
           className="absolute inset-0 size-full scale-110 object-cover blur-xl"
         />
       ) : null}

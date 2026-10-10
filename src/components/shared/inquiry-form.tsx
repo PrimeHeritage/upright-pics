@@ -243,7 +243,7 @@ export function InquiryForm({ services, defaultService, whatsapp, businessName }
 
       {mutation.isError ? (
         <p role="alert" className="text-sm text-destructive md:col-span-2">
-          We couldn’t send that. Please try again or message us on WhatsApp.
+          {mutation.error.message || 'We couldn’t send that. Please try again or message us on WhatsApp.'}
         </p>
       ) : null}
     </form>

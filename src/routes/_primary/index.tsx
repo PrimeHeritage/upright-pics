@@ -4,12 +4,11 @@ import Home from '@/components/pages/home'
 import { albumsQuery, categoriesQuery } from '@/hooks/api/portfolio'
 import { packagesQuery, servicesQuery, testimonialsQuery } from '@/hooks/api/services'
 import { homeContentQuery, settingsQuery } from '@/hooks/api/site'
-import { imageUrl } from '@/lib/media'
 import { businessJsonLd, seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/_primary/')({
   loader: async ({ context: { queryClient } }) => {
-    const [settings, content] = await Promise.all([
+    const [settings] = await Promise.all([
       queryClient.ensureQueryData(settingsQuery()),
       queryClient.ensureQueryData(homeContentQuery()),
       queryClient.ensureQueryData(albumsQuery({ featured: true })),
@@ -18,20 +17,14 @@ export const Route = createFileRoute('/_primary/')({
       queryClient.ensureQueryData(testimonialsQuery()),
       queryClient.ensureQueryData(packagesQuery()),
     ])
-    return { settings, heroImage: content.hero.slides.at(0) ?? null }
+    // The hero <img> is priority, so React emits its responsive preload itself.
+    return { settings }
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {}
-    const { settings, heroImage } = loaderData
-    const base = seo({ settings, path: '/' })
+    const { settings } = loaderData
     return {
-      ...base,
-      links: [
-        ...base.links,
-        ...(heroImage
-          ? [{ rel: 'preload', as: 'image', href: imageUrl(heroImage.src, 1080), fetchPriority: 'high' }]
-          : []),
-      ],
+      ...seo({ settings, path: '/' }),
       scripts: [{ type: 'application/ld+json', children: JSON.stringify(businessJsonLd(settings)) }],
     }
   },

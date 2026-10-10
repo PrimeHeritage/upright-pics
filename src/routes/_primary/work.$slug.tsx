@@ -4,7 +4,6 @@ import { z } from 'zod'
 import WorkDetail from '@/components/pages/work-detail'
 import { albumQuery } from '@/hooks/api/portfolio'
 import { settingsQuery } from '@/hooks/api/site'
-import { imageUrl } from '@/lib/media'
 import { seo } from '@/lib/seo'
 
 const searchSchema = z.object({
@@ -22,20 +21,13 @@ export const Route = createFileRoute('/_primary/work/$slug')({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
-    const base = seo({
+    return seo({
       settings: loaderData.settings,
       title: loaderData.album.title,
       description: loaderData.album.summary,
       image: loaderData.album.cover,
       path: `/work/${params.slug}`,
     })
-    return {
-      ...base,
-      links: [
-        ...base.links,
-        { rel: 'preload', as: 'image', href: imageUrl(loaderData.album.cover.src, 1080), fetchPriority: 'high' },
-      ],
-    }
   },
   component: WorkDetailRoute,
 })
