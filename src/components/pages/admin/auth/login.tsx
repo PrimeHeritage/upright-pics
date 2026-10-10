@@ -18,6 +18,11 @@ export default function Login({ redirect }: { redirect?: string }) {
       if (!ok) return
       // Only follow same-site admin redirects.
       const target = redirect?.startsWith('/admin') ? redirect : '/admin'
+      // Static admin pages (e.g. /admin/guide.html) are served by the server, not the router.
+      if (target.endsWith('.html')) {
+        window.location.assign(target)
+        return
+      }
       await router.invalidate()
       await router.navigate({ to: target })
     },

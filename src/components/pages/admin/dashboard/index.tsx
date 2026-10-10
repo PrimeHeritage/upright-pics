@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { ArrowUpRight, ImagePlus, Inbox, PenLine, Settings } from 'lucide-react'
+import { ArrowUpRight, BookOpen, ImagePlus, Inbox, PenLine, Settings } from 'lucide-react'
 
 import { AdminPageHeader } from '@/components/shared/admin/page-header'
 import { Badge } from '@/components/ui/badge'
@@ -123,6 +123,17 @@ export default function Dashboard({ email }: { email: string }) {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/admin/guide.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-md border border-line px-3 py-2.5 text-sm transition-colors hover:border-line-strong hover:bg-surface-2"
+                >
+                  <BookOpen className="size-4 text-gold" strokeWidth={1.75} />
+                  How to use the admin
+                </a>
+              </li>
             </ul>
           </section>
 

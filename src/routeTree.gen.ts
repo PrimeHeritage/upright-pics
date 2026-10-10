@@ -18,8 +18,10 @@ import { Route as PrimaryContactRouteImport } from './routes/_primary/contact'
 import { Route as PrimaryServicesRouteImport } from './routes/_primary/services'
 import { Route as AdminDashboardRouteImport } from './routes/admin/_dashboard'
 import { Route as AdminForgotPasswordRouteImport } from './routes/admin/forgot-password'
+import { Route as AdminGuideDothtmlRouteImport } from './routes/admin/guide[.]html'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminResetPasswordRouteImport } from './routes/admin/reset-password'
+import { Route as ApiKeepAliveRouteImport } from './routes/api/keep-alive'
 import { Route as PrimaryWorkIndexRouteImport } from './routes/_primary/work.index'
 import { Route as PrimaryWorkSlugRouteImport } from './routes/_primary/work.$slug'
 import { Route as AdminDashboardIndexRouteImport } from './routes/admin/_dashboard/index'
@@ -77,6 +79,11 @@ const AdminForgotPasswordRoute = AdminForgotPasswordRouteImport.update({
   path: '/admin/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGuideDothtmlRoute = AdminGuideDothtmlRouteImport.update({
+  id: '/admin/guide.html',
+  path: '/admin/guide.html',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin/login',
   path: '/admin/login',
@@ -85,6 +92,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
   id: '/admin/reset-password',
   path: '/admin/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiKeepAliveRoute = ApiKeepAliveRouteImport.update({
+  id: '/api/keep-alive',
+  path: '/api/keep-alive',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrimaryWorkIndexRoute = PrimaryWorkIndexRouteImport.update({
@@ -161,8 +173,10 @@ export interface FileRoutesByFullPath {
   '/services': typeof PrimaryServicesRoute
   '/admin': typeof AdminDashboardRouteWithChildren
   '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/guide.html': typeof AdminGuideDothtmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/api/keep-alive': typeof ApiKeepAliveRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
   '/admin/categories': typeof AdminDashboardCategoriesRoute
   '/admin/content': typeof AdminDashboardContentRoute
@@ -183,8 +197,10 @@ export interface FileRoutesByTo {
   '/contact': typeof PrimaryContactRoute
   '/services': typeof PrimaryServicesRoute
   '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/guide.html': typeof AdminGuideDothtmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/api/keep-alive': typeof ApiKeepAliveRoute
   '/': typeof PrimaryIndexRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
   '/admin/categories': typeof AdminDashboardCategoriesRoute
@@ -209,8 +225,10 @@ export interface FileRoutesById {
   '/_primary/services': typeof PrimaryServicesRoute
   '/admin/_dashboard': typeof AdminDashboardRouteWithChildren
   '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/guide.html': typeof AdminGuideDothtmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/api/keep-alive': typeof ApiKeepAliveRoute
   '/_primary/': typeof PrimaryIndexRoute
   '/_primary/work/$slug': typeof PrimaryWorkSlugRoute
   '/admin/_dashboard/categories': typeof AdminDashboardCategoriesRoute
@@ -236,8 +254,10 @@ export interface FileRouteTypes {
     | '/services'
     | '/admin'
     | '/admin/forgot-password'
+    | '/admin/guide.html'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/api/keep-alive'
     | '/work/$slug'
     | '/admin/categories'
     | '/admin/content'
@@ -258,8 +278,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/services'
     | '/admin/forgot-password'
+    | '/admin/guide.html'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/api/keep-alive'
     | '/'
     | '/work/$slug'
     | '/admin/categories'
@@ -283,8 +305,10 @@ export interface FileRouteTypes {
     | '/_primary/services'
     | '/admin/_dashboard'
     | '/admin/forgot-password'
+    | '/admin/guide.html'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/api/keep-alive'
     | '/_primary/'
     | '/_primary/work/$slug'
     | '/admin/_dashboard/categories'
@@ -306,8 +330,10 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRouteWithChildren
   AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
+  AdminGuideDothtmlRoute: typeof AdminGuideDothtmlRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminResetPasswordRoute: typeof AdminResetPasswordRoute
+  ApiKeepAliveRoute: typeof ApiKeepAliveRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -375,6 +401,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/guide.html': {
+      id: '/admin/guide.html'
+      path: '/admin/guide.html'
+      fullPath: '/admin/guide.html'
+      preLoaderRoute: typeof AdminGuideDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/admin/login'
@@ -387,6 +420,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/reset-password'
       fullPath: '/admin/reset-password'
       preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/keep-alive': {
+      id: '/api/keep-alive'
+      path: '/api/keep-alive'
+      fullPath: '/api/keep-alive'
+      preLoaderRoute: typeof ApiKeepAliveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_primary/work/': {
@@ -533,8 +573,10 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRouteWithChildren,
   AdminForgotPasswordRoute: AdminForgotPasswordRoute,
+  AdminGuideDothtmlRoute: AdminGuideDothtmlRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminResetPasswordRoute: AdminResetPasswordRoute,
+  ApiKeepAliveRoute: ApiKeepAliveRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

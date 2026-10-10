@@ -13,7 +13,15 @@ const config = defineConfig({
   build: { sourcemap: process.env.ANALYZE ? true : false },
   plugins: [
     devtools(),
-    nitro(),
+    nitro({
+      vercel: {
+        config: {
+          version: 3,
+          // Keeps the free Supabase project active (it pauses after 7 idle days).
+          crons: [{ path: '/api/keep-alive', schedule: '0 6 */3 * *' }],
+        },
+      },
+    }),
     tailwindcss(),
     tanstackStart({
       router: {

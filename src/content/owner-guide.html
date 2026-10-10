@@ -1,0 +1,245 @@
+<title>Upright Studio Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one readable column, task-first sections, a sticky contents strip on wide screens.
+     Mirrors the website's "Darkroom" look so the guide feels like part of the studio. */
+  :root {
+    --bg: #0c0b0a;
+    --surface: #161412;
+    --line: rgb(234 230 223 / 0.12);
+    --fg: #eae6df;
+    --muted: #a39d93;
+    --accent: #c8a35a;
+    --display: 'Bodoni Moda', 'Bodoni 72', Didot, Georgia, serif;
+    --body: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f6f4f0; --surface: #ffffff; --line: rgb(26 24 21 / 0.12);
+      --fg: #1a1815; --muted: #5f5a52; --accent: #8a6a24; color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f4f0; --surface: #ffffff; --line: rgb(26 24 21 / 0.12);
+    --fg: #1a1815; --muted: #5f5a52; --accent: #8a6a24; color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 400 1.0625rem/1.65 var(--body);
+    padding-inline: 20px; padding-block: 48px 96px;
+  }
+  .wrap { max-width: 1040px; margin-inline: auto; display: grid; gap: 48px; }
+  @media (min-width: 900px) { .wrap { grid-template-columns: 200px minmax(0, 1fr); gap: 64px; } }
+
+  header.intro { grid-column: 1 / -1; display: grid; gap: 16px; max-width: 66ch; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 0.875rem; letter-spacing: 0.04em; }
+  .brand b { color: var(--accent); font-weight: 600; letter-spacing: 0.12em; }
+  h1 { font: 400 clamp(2.4rem, 6vw, 3.6rem)/1.05 var(--display); margin: 0; text-wrap: balance; }
+  h1 em { color: var(--accent); }
+  .lead { color: var(--muted); font-size: 1.125rem; margin: 0; }
+
+  nav.toc { display: none; }
+  @media (min-width: 900px) {
+    nav.toc { display: block; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; }
+  }
+  nav.toc p { margin: 0 0 12px; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 0.9375rem; }
+  nav.toc a { color: var(--fg); text-decoration: none; opacity: 0.8; }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); opacity: 1; }
+
+  main { min-width: 0; display: grid; gap: 56px; }
+  section { display: grid; gap: 16px; max-width: 68ch; scroll-margin-top: 24px; }
+  h2 { font: 400 1.9rem/1.15 var(--display); margin: 0; padding-top: 24px; border-top: 1px solid var(--line); text-wrap: balance; }
+  h3 { font: 600 1.0625rem/1.4 var(--body); margin: 8px 0 0; }
+  p { margin: 0; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 4px; }
+  ol.steps li::before {
+    content: counter(s); font: 500 0.875rem/1.9 var(--body); color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  ul.plain { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; }
+  .ui {
+    font: 500 0.92em var(--body); padding: 1px 7px; border-radius: 4px;
+    border: 1px solid var(--line); background: var(--surface); white-space: nowrap;
+  }
+
+  .address {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    padding: 14px 16px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface);
+  }
+  .address code { font: 500 1rem var(--body); color: var(--fg); user-select: all; overflow-wrap: anywhere; min-width: 0; }
+  .address button {
+    margin-left: auto; font: 500 0.875rem var(--body); color: var(--bg); background: var(--accent);
+    border: 0; border-radius: 4px; padding: 8px 14px; cursor: pointer;
+  }
+
+  .note { padding: 14px 16px; border-left: 2px solid var(--accent); background: var(--surface); color: var(--fg); }
+  .note strong { color: var(--accent); font-weight: 600; }
+
+  table.sizes { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  .table-wrap { overflow-x: auto; }
+  table.sizes th, table.sizes td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.sizes th { font-weight: 500; color: var(--muted); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  footer { grid-column: 1 / -1; color: var(--muted); font-size: 0.9375rem; border-top: 1px solid var(--line); padding-top: 24px; max-width: 68ch; }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <div class="brand"><b>UPC</b> Upright Pictures Concepts</div>
+    <h1>Running your website, <em>without calling anyone.</em></h1>
+    <p class="lead">Everything on uprightconceptsmedia.com can be changed from your admin area: photos, words, prices, contact details and more. This guide shows you where each thing lives.</p>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#signin">Signing in</a></li>
+      <li><a href="#enquiries">Enquiries</a></li>
+      <li><a href="#albums">Albums and photos</a></li>
+      <li><a href="#content">Words on your pages</a></li>
+      <li><a href="#services">Services, packages, testimonials</a></li>
+      <li><a href="#settings">Contact details and settings</a></li>
+      <li><a href="#password">Your password</a></li>
+      <li><a href="#tips">Good habits</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="signin">
+      <h2>Signing in</h2>
+      <p>Your admin area is at this address. Save it as a bookmark on your phone and laptop.</p>
+      <div class="address">
+        <code id="admin-url">uprightconceptsmedia.com/admin</code>
+        <button type="button" id="copy-url">Copy</button>
+      </div>
+      <ol class="steps">
+        <li><span>Open the address above and enter your email (<strong>admin@uprightconceptsmedia.com</strong>) and password.</span></li>
+        <li><span>You land on the <span class="ui">Dashboard</span>. It shows new enquiries, how many albums and photos are live, and whether packages and testimonials are showing.</span></li>
+        <li><span>Use the menu on the left to move around. On a phone, tap the menu icon at the top left.</span></li>
+      </ol>
+      <p>When you are done, open the menu at the bottom left (your email) and choose <span class="ui">Sign out</span>, especially on a shared computer.</p>
+    </section>
+
+    <section id="enquiries">
+      <h2>Enquiries</h2>
+      <p>Every message sent through the <span class="ui">Book a shoot</span> form on your website lands in <span class="ui">Enquiries</span>. New ones show a gold number in the menu.</p>
+      <ol class="steps">
+        <li><span>Tap an enquiry to read it. It is marked <span class="ui">Read</span> automatically.</span></li>
+        <li><span>Tap <span class="ui">Reply on WhatsApp</span> to open WhatsApp with a greeting already written. <span class="ui">Call</span> and <span class="ui">Email</span> work the same way.</span></li>
+        <li><span>Set the status to <span class="ui">Replied</span> once you have answered, or <span class="ui">Archived</span> when it is finished. The tabs at the top filter by status.</span></li>
+      </ol>
+      <p>Use the search box to find someone by name, phone number or anything they wrote.</p>
+    </section>
+
+    <section id="albums">
+      <h2>Albums and photos</h2>
+      <p>Each shoot or event is an album. Albums appear on the <span class="ui">Work</span> page, and the ones you star also appear on the homepage.</p>
+      <h3>Add a new album</h3>
+      <ol class="steps">
+        <li><span>Go to <span class="ui">Albums</span> and tap <span class="ui">New album</span>. Give it a title and pick a category.</span></li>
+        <li><span>On the album screen, tap <span class="ui">Add photos</span>, or drag photos from your computer onto the photo area. You can select many at once.</span></li>
+        <li><span>Keep the page open while the photos upload. Each one is saved as soon as it finishes.</span></li>
+        <li><span>Fill in the <span class="ui">Details</span> on the right: a short summary, the story, location and date. Tap <span class="ui">Save details</span>.</span></li>
+        <li><span>Switch on <span class="ui">Published</span> to put the album on the website. New albums stay hidden until you do.</span></li>
+      </ol>
+      <h3>Arrange and tidy</h3>
+      <ul class="plain">
+        <li>Drag photos by the grip in their top-left corner to change the order.</li>
+        <li>Tap the <span class="ui">⋯</span> button on a photo to <span class="ui">Set as cover</span>, add a description and caption, or delete it.</li>
+        <li>Tap the <span class="ui">Feature</span> star to show the album on the homepage. Six featured albums look best.</li>
+        <li>On the <span class="ui">Albums</span> list, drag whole albums to change their order on the Work page.</li>
+        <li>To add a video, paste a YouTube or Vimeo link under <span class="ui">Videos</span>.</li>
+      </ul>
+      <div class="note"><strong>Replace the sample photos.</strong> The website launched with sample photos from a free photo library so it would look complete. Replace them with your own work album by album, then delete the sample albums you no longer need.</div>
+    </section>
+
+    <section id="content">
+      <h2>Words on your pages</h2>
+      <p><span class="ui">Page content</span> holds the headlines, text and photos for each page. Use the tabs to pick a page, then edit a section and tap its <span class="ui">Save</span> button. Each section saves on its own.</p>
+      <ul class="plain">
+        <li><strong>Homepage:</strong> the big headline and rotating photos, the introduction, the "From shoot to frame" steps, the drone section (paste a YouTube link to show a play button) and the closing section.</li>
+        <li><strong>About:</strong> your story, your portrait, key facts and how you work. Please replace the sample facts with real ones.</li>
+        <li><strong>Contact, Work page and Services page:</strong> the heading and short text at the top of each.</li>
+      </ul>
+      <p>If you leave a page with unsaved changes, the admin asks before throwing them away.</p>
+    </section>
+
+    <section id="services">
+      <h2>Services, packages and testimonials</h2>
+      <p>These three work the same way: tap an item to edit it, drag to reorder, use the switch to hide it without deleting, or tap the bin to delete.</p>
+      <ul class="plain">
+        <li><strong>Services:</strong> the nine things you offer, each with a photo and description.</li>
+        <li><strong>Packages:</strong> names, prices and what is included. Write prices the way you want them shown, for example "From ₦150,000". Tap <span class="ui">Highlight</span> to give one package a gold accent.</li>
+        <li><strong>Testimonials:</strong> short quotes from clients. The samples are placeholders, so replace them with real words from real clients.</li>
+      </ul>
+    </section>
+
+    <section id="settings">
+      <h2>Contact details and settings</h2>
+      <p><span class="ui">Settings</span> controls the details that appear across the whole website.</p>
+      <div class="table-wrap">
+        <table class="sizes">
+          <thead><tr><th>Section</th><th>What it changes</th></tr></thead>
+          <tbody>
+            <tr><td>Business</td><td>Name, short name, tagline and logo</td></tr>
+            <tr><td>Contact</td><td>Email, up to three phone numbers, the WhatsApp number every WhatsApp button uses, and your location</td></tr>
+            <tr><td>Social media</td><td>Links to Instagram, TikTok, YouTube, X and Facebook. Leave one blank to hide it.</td></tr>
+            <tr><td>On the website</td><td>Switches to show or hide packages, prices and testimonials everywhere at once</td></tr>
+            <tr><td>Search &amp; sharing</td><td>How your homepage looks on Google and when the link is shared on WhatsApp</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tap <span class="ui">Save changes</span> in the bar at the bottom of the screen.</p>
+    </section>
+
+    <section id="password">
+      <h2>Your password</h2>
+      <ul class="plain">
+        <li><strong>To change it:</strong> open <span class="ui">Settings</span>, scroll to <span class="ui">Password</span>, enter your current password and the new one twice. Use at least 10 characters with a letter and a number.</li>
+        <li><strong>If you forget it:</strong> on the sign-in page tap <span class="ui">Forgot password?</span>. A link arrives at admin@uprightconceptsmedia.com. It works once and expires after an hour.</li>
+      </ul>
+    </section>
+
+    <section id="tips">
+      <h2>Good habits</h2>
+      <ul class="plain">
+        <li><strong>Changes appear within about a minute.</strong> If the website still shows the old version, wait a moment and refresh.</li>
+        <li><strong>Upload your best export.</strong> Full-size JPGs straight from your editing app are ideal. Very large files are shrunk automatically, and the website serves the right size to every phone.</li>
+        <li><strong>Describe your photos.</strong> A plain description such as "Bride and groom dancing at their Lekki reception" helps Google show your work in image search.</li>
+        <li><strong>Keep albums focused.</strong> Fifteen strong photos sell better than eighty similar ones.</li>
+        <li><strong>Check enquiries daily.</strong> A quick reply is often what wins the booking.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>Anything not covered here, or something that looks broken? Send a screenshot to your developer along with the page you were on.</footer>
+</div>
+
+<script>
+  document.getElementById('copy-url').addEventListener('click', async (event) => {
+    const button = event.currentTarget
+    const text = 'https://' + document.getElementById('admin-url').textContent
+    try {
+      await navigator.clipboard.writeText(text)
+      button.textContent = 'Copied'
+    } catch {
+      const range = document.createRange()
+      range.selectNodeContents(document.getElementById('admin-url'))
+      const selection = window.getSelection()
+      selection.removeAllRanges()
+      selection.addRange(range)
+      button.textContent = 'Selected'
+    }
+    setTimeout(() => (button.textContent = 'Copy'), 2000)
+  })
+</script>

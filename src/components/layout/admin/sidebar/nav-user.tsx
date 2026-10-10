@@ -1,4 +1,4 @@
-import { ChevronsUpDown, ExternalLink, KeyRound, LogOut } from 'lucide-react'
+import { BookOpen, ChevronsUpDown, ExternalLink, KeyRound, LogOut } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 import {
@@ -39,6 +39,11 @@ export default function NavUser({ email }: { email: string }) {
             <DropdownMenuItem asChild>
               <a href="/" target="_blank" rel="noreferrer">
                 <ExternalLink /> View website
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="/admin/guide.html" target="_blank" rel="noreferrer">
+                <BookOpen /> How to use the admin
               </a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
