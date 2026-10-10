@@ -19,7 +19,7 @@ interface MediaImageProps {
 
 /**
  * Responsive image for Cloudinary/Unsplash sources: srcset, explicit
- * dimensions (no layout shift), blurred placeholder and a soft fade-in.
+ * dimensions (no layout shift) and a blurred placeholder until it loads.
  */
 export function MediaImage({
   image,
@@ -69,11 +69,9 @@ export function MediaImage({
           // Cached images can finish before hydration attaches onLoad.
           if (el?.complete && el.naturalWidth > 0) setLoaded(true)
         }}
-        className={cn(
-          'relative size-full object-cover transition-[opacity,transform] duration-700 ease-out-expo',
-          loaded || priority ? 'opacity-100' : 'opacity-0',
-          imgClassName,
-        )}
+        // Always visible: hiding it until hydration delayed LCP by ~1 s. The blur
+        // placeholder underneath shows until the photo paints over it.
+        className={cn('relative size-full object-cover transition-transform duration-700 ease-out-expo', imgClassName)}
       />
     </div>
   )
