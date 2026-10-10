@@ -9,11 +9,21 @@ import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  // ANALYZE=1 pnpm build emits source maps for bundle inspection.
+  build: { sourcemap: process.env.ANALYZE ? true : false },
   plugins: [
     devtools(),
-    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
+    nitro(),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        // Load each route's loader with its component: keeps admin loaders
+        // (and their schemas) out of the public bundle without an extra request.
+        codeSplittingOptions: {
+          defaultBehavior: [['loader', 'component'], ['pendingComponent'], ['errorComponent'], ['notFoundComponent']],
+        },
+      },
+    }),
     viteReact(),
   ],
 })

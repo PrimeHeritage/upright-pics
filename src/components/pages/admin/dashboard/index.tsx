@@ -5,7 +5,7 @@ import { ArrowUpRight, ImagePlus, Inbox, PenLine, Settings } from 'lucide-react'
 import { AdminPageHeader } from '@/components/shared/admin/page-header'
 import { Badge } from '@/components/ui/badge'
 import { dashboardQuery } from '@/hooks/api/admin/dashboard'
-import { cn } from '@/lib/utils'
+import { cn, lagosHour } from '@/lib/utils'
 
 const relative = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
 
@@ -31,7 +31,7 @@ export default function Dashboard({ email }: { email: string }) {
   const { data } = useSuspenseQuery(dashboardQuery())
   const { counts, toggles, recentInquiries } = data
   const greeting = (() => {
-    const h = new Date().getHours()
+    const h = lagosHour()
     return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'
   })()
 
@@ -98,7 +98,10 @@ export default function Dashboard({ email }: { email: string }) {
                     </p>
                     <p className="mt-2 line-clamp-2 text-sm text-paper/80">{q.message}</p>
                   </div>
-                  <span className="shrink-0 text-xs text-smoke">{timeAgo(q.createdAt)}</span>
+                  {/* Relative time differs by a few seconds between server and browser. */}
+                  <span className="shrink-0 text-xs text-smoke" suppressHydrationWarning>
+                    {timeAgo(q.createdAt)}
+                  </span>
                 </li>
               ))}
             </ul>

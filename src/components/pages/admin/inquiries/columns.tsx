@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-table'
 
 import { StatusPill } from './status'
+import { BUSINESS_TIME_ZONE } from '@/lib/utils'
 import type { Inquiry } from '@/types'
 
 export const inquiryFeatures = tableFeatures({
@@ -33,8 +34,14 @@ export const inquiryFeatures = tableFeatures({
 
 const col = createColumnHelper<typeof inquiryFeatures, Inquiry>()
 
-const dateFmt = new Intl.DateTimeFormat('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })
-const timeFmt = new Intl.DateTimeFormat('en-NG', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+const dateFmt = new Intl.DateTimeFormat('en-NG', { day: 'numeric', month: 'short', year: 'numeric', timeZone: BUSINESS_TIME_ZONE })
+const timeFmt = new Intl.DateTimeFormat('en-NG', {
+  day: 'numeric',
+  month: 'short',
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZone: BUSINESS_TIME_ZONE,
+})
 
 export const formatEventDate = (iso: string | null | undefined) => (iso ? dateFmt.format(new Date(iso)) : null)
 export const formatReceived = (iso: string) => timeFmt.format(new Date(iso))

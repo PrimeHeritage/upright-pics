@@ -42,6 +42,22 @@ export function imageSrcSet(image: ImageAsset, maxWidth = 2400): string {
   return widths.map((w) => `${imageUrl(image.src, w)} ${w}w`).join(', ')
 }
 
+/** 1200x630 social-preview crop (Open Graph / WhatsApp / X cards). */
+export function ogImageUrl(src: string): string {
+  if (src.includes('res.cloudinary.com') && src.includes(CLOUDINARY_UPLOAD)) {
+    const [base, rest] = src.split(CLOUDINARY_UPLOAD)
+    return `${base}${CLOUDINARY_UPLOAD}f_jpg,q_auto,c_fill,g_auto,w_1200,h_630/${rest}`
+  }
+  if (src.includes('images.unsplash.com')) {
+    const url = new URL(src)
+    for (const [k, v] of Object.entries({ w: '1200', h: '630', fit: 'crop', crop: 'faces,entropy', fm: 'jpg', q: '80' })) {
+      url.searchParams.set(k, v)
+    }
+    return url.toString()
+  }
+  return src
+}
+
 /** A tiny, heavily blurred version of the image used as a placeholder. */
 export function imagePlaceholder(src: string): string {
   if (src.includes('images.unsplash.com')) {

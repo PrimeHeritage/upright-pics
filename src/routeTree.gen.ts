@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrimaryRouteImport } from './routes/_primary'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrimaryIndexRouteImport } from './routes/_primary/index'
 import { Route as PrimaryAboutRouteImport } from './routes/_primary/about'
 import { Route as PrimaryContactRouteImport } from './routes/_primary/contact'
@@ -33,6 +35,16 @@ import { Route as AdminDashboardAlbumsAlbumIdRouteImport } from './routes/admin/
 
 const PrimaryRoute = PrimaryRouteImport.update({
   id: '/_primary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrimaryIndexRoute = PrimaryIndexRouteImport.update({
@@ -142,6 +154,8 @@ const AdminDashboardAlbumsAlbumIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof PrimaryIndexRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/about': typeof PrimaryAboutRoute
   '/contact': typeof PrimaryContactRoute
   '/services': typeof PrimaryServicesRoute
@@ -163,6 +177,8 @@ export interface FileRoutesByFullPath {
   '/admin/albums/': typeof AdminDashboardAlbumsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/about': typeof PrimaryAboutRoute
   '/contact': typeof PrimaryContactRoute
   '/services': typeof PrimaryServicesRoute
@@ -186,6 +202,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_primary': typeof PrimaryRouteWithChildren
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_primary/about': typeof PrimaryAboutRoute
   '/_primary/contact': typeof PrimaryContactRoute
   '/_primary/services': typeof PrimaryServicesRoute
@@ -211,6 +229,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/about'
     | '/contact'
     | '/services'
@@ -232,6 +252,8 @@ export interface FileRouteTypes {
     | '/admin/albums/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/about'
     | '/contact'
     | '/services'
@@ -254,6 +276,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_primary'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/_primary/about'
     | '/_primary/contact'
     | '/_primary/services'
@@ -278,6 +302,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   PrimaryRoute: typeof PrimaryRouteWithChildren
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRouteWithChildren
   AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -291,6 +317,20 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PrimaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_primary/': {
@@ -489,6 +529,8 @@ const AdminDashboardRouteWithChildren = AdminDashboardRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   PrimaryRoute: PrimaryRouteWithChildren,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRouteWithChildren,
   AdminForgotPasswordRoute: AdminForgotPasswordRoute,
   AdminLoginRoute: AdminLoginRoute,

@@ -1,17 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { z } from 'zod'
+import type { SearchSchemaInput } from '@tanstack/react-router'
 
 import Work from '@/components/pages/work'
 import { albumsQuery, categoriesQuery } from '@/hooks/api/portfolio'
 import { pageHeaderQuery, settingsQuery } from '@/hooks/api/site'
-import { seo } from '@/lib/seo'
+import { optionalString } from '@/lib/search'
+import { breadcrumbJsonLd, jsonLd, seo } from '@/lib/seo'
 
-const searchSchema = z.object({
-  category: z.string().max(60).optional().catch(undefined),
-})
 
 export const Route = createFileRoute('/_primary/work/')({
-  validateSearch: searchSchema,
+  validateSearch: (search: { category?: string } & SearchSchemaInput) => ({ category: optionalString(search.category, 60) }),
   loaderDeps: ({ search }) => ({ category: search.category }),
   loader: async ({ context: { queryClient }, deps }) => {
     const [settings, header, categories] = await Promise.all([
@@ -21,16 +19,21 @@ export const Route = createFileRoute('/_primary/work/')({
       queryClient.ensureQueryData(albumsQuery({ category: deps.category })),
     ])
     const category = categories.find((c) => c.slug === deps.category)
-    return { settings, header, category: category?.name }
+    return { settings, header, category: category?.name, slug: category?.slug }
   },
   head: ({ loaderData }) =>
     loaderData
-      ? seo({
-          settings: loaderData.settings,
-          title: loaderData.category ? `${loaderData.category} photography` : 'Work',
-          description: loaderData.header.body,
-          path: '/work',
-        })
+      ? {
+          ...seo({
+            settings: loaderData.settings,
+            title: loaderData.category
+              ? `${loaderData.category} | Photography in Lagos`
+              : 'Photography Portfolio: Weddings, Portraits & Events',
+            description: loaderData.header.body,
+            path: loaderData.category ? `/work?category=${loaderData.slug}` : '/work',
+          }),
+          scripts: [jsonLd(breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Work', path: '/work' }]))],
+        }
       : {},
   component: WorkRoute,
 })

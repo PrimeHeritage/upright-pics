@@ -1,17 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { z } from 'zod'
+import type { SearchSchemaInput } from '@tanstack/react-router'
 
 import Contact from '@/components/pages/contact'
 import { servicesQuery } from '@/hooks/api/services'
 import { contactContentQuery, settingsQuery } from '@/hooks/api/site'
-import { seo } from '@/lib/seo'
+import { optionalString } from '@/lib/search'
+import { breadcrumbJsonLd, jsonLd, seo } from '@/lib/seo'
 
-const searchSchema = z.object({
-  service: z.string().max(80).optional().catch(undefined),
-})
 
 export const Route = createFileRoute('/_primary/contact')({
-  validateSearch: searchSchema,
+  validateSearch: (search: { service?: string } & SearchSchemaInput) => ({ service: optionalString(search.service, 80) }),
   loader: async ({ context: { queryClient } }) => {
     const [settings, content] = await Promise.all([
       queryClient.ensureQueryData(settingsQuery()),
@@ -22,7 +20,15 @@ export const Route = createFileRoute('/_primary/contact')({
   },
   head: ({ loaderData }) =>
     loaderData
-      ? seo({ settings: loaderData.settings, title: 'Book a shoot', description: loaderData.body, path: '/contact' })
+      ? {
+          ...seo({
+            settings: loaderData.settings,
+            title: 'Book a Photoshoot or Event Coverage',
+            description: loaderData.body,
+            path: '/contact',
+          }),
+          scripts: [jsonLd(breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Book a shoot', path: '/contact' }]))],
+        }
       : {},
   component: ContactRoute,
 })

@@ -1,33 +1,45 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { z } from 'zod'
+import type { SearchSchemaInput } from '@tanstack/react-router'
 
 import WorkDetail from '@/components/pages/work-detail'
 import { albumQuery } from '@/hooks/api/portfolio'
 import { settingsQuery } from '@/hooks/api/site'
-import { seo } from '@/lib/seo'
+import { optionalIndex } from '@/lib/search'
+import { albumJsonLd, breadcrumbJsonLd, jsonLd, seo } from '@/lib/seo'
 
-const searchSchema = z.object({
-  photo: z.number().int().min(0).optional().catch(undefined),
-})
 
 export const Route = createFileRoute('/_primary/work/$slug')({
-  validateSearch: searchSchema,
+  validateSearch: (search: { photo?: number } & SearchSchemaInput) => ({ photo: optionalIndex(search.photo) }),
   loader: async ({ context: { queryClient }, params }) => {
     const [settings, data] = await Promise.all([
       queryClient.ensureQueryData(settingsQuery()),
       queryClient.ensureQueryData(albumQuery(params.slug)),
     ])
-    return { settings, album: { title: data.album.title, summary: data.album.summary, cover: data.album.cover } }
+    return { settings, album: data.album, categoryName: data.category?.name ?? null }
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return {}
-    return seo({
-      settings: loaderData.settings,
-      title: loaderData.album.title,
-      description: loaderData.album.summary,
-      image: loaderData.album.cover,
-      path: `/work/${params.slug}`,
-    })
+    const { album, categoryName, settings } = loaderData
+    return {
+      ...seo({
+        settings,
+        title: categoryName ? `${album.title} | ${categoryName}` : album.title,
+        description: album.summary,
+        image: album.cover,
+        path: `/work/${params.slug}`,
+        type: 'article',
+      }),
+      scripts: [
+        jsonLd(albumJsonLd(album, categoryName)),
+        jsonLd(
+          breadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Work', path: '/work' },
+            { name: album.title, path: `/work/${params.slug}` },
+          ]),
+        ),
+      ],
+    }
   },
   component: WorkDetailRoute,
 })

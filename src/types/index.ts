@@ -16,6 +16,8 @@ export interface ImageAsset {
   alt: string
   publicId?: string | null
   color?: string | null
+  /** Photographer credit for stock/seed images. */
+  credit?: string | null
 }
 
 export interface SocialLinks {

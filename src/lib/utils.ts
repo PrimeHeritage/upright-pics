@@ -36,14 +36,22 @@ export function slugify(value: string): string {
   return value
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
+}
+
+/** The business runs on Lagos time; server (UTC) and browser must format alike. */
+export const BUSINESS_TIME_ZONE = 'Africa/Lagos'
+
+/** Hour of day (0-23) in Lagos. */
+export function lagosHour(date = new Date()): number {
+  return Number(new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hour12: false, timeZone: BUSINESS_TIME_ZONE }).format(date))
 }
 
 export function formatMonthYear(date?: string | null): string | null {
   if (!date) return null
   const d = new Date(date)
   if (Number.isNaN(d.getTime())) return null
-  return d.toLocaleDateString('en-NG', { month: 'long', year: 'numeric' })
+  return d.toLocaleDateString('en-NG', { month: 'long', year: 'numeric', timeZone: BUSINESS_TIME_ZONE })
 }

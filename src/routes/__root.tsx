@@ -3,7 +3,11 @@ import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/reac
 import type { QueryClient } from '@tanstack/react-query'
 
 import appCss from '@/styles.css?url'
-import { Toaster } from '@/components/ui/sonner'
+
+// Toasts are only used after user actions, so the library loads lazily.
+const Toaster = lazy(() => import('@/components/ui/sonner').then((m) => ({ default: m.Toaster })))
+
+const GOOGLE_VERIFICATION = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined
 
 interface RouterContext {
   queryClient: QueryClient
@@ -21,11 +25,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
       { name: 'theme-color', content: '#0c0b0a' },
+      { name: 'format-detection', content: 'telephone=no' },
       { title: 'Upright Pictures Concepts' },
+      // Google Search Console ownership (optional; DNS verification also works).
+      ...(GOOGLE_VERIFICATION ? [{ name: 'google-site-verification', content: GOOGLE_VERIFICATION }] : []),
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      { rel: 'icon', href: '/brand/upc-logo.jpg' },
+      { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+      { rel: 'icon', href: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
+      { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'preconnect', href: 'https://images.unsplash.com' },
       { rel: 'preconnect', href: 'https://res.cloudinary.com' },
     ],
@@ -41,7 +51,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <Toaster position="bottom-center" />
+        <Suspense>
+          <Toaster position="bottom-center" />
+        </Suspense>
         <Suspense>
           <Devtools />
         </Suspense>

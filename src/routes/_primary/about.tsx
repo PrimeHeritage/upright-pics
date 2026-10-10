@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import About from '@/components/pages/about'
 import { aboutContentQuery, settingsQuery } from '@/hooks/api/site'
-import { seo } from '@/lib/seo'
+import { breadcrumbJsonLd, jsonLd, seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/_primary/about')({
   loader: async ({ context: { queryClient } }) => {
@@ -14,13 +14,17 @@ export const Route = createFileRoute('/_primary/about')({
   },
   head: ({ loaderData }) =>
     loaderData
-      ? seo({
-          settings: loaderData.settings,
-          title: 'About',
-          description: loaderData.lead,
-          image: loaderData.portrait,
-          path: '/about',
-        })
+      ? {
+          ...seo({
+            settings: loaderData.settings,
+            title: 'About the Studio',
+            description: loaderData.lead,
+            image: loaderData.portrait,
+            path: '/about',
+            type: 'profile',
+          }),
+          scripts: [jsonLd(breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]))],
+        }
       : {},
   component: About,
 })

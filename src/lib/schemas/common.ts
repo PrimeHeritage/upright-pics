@@ -9,7 +9,7 @@ export const imageAssetSchema = z.object({
   publicId: z.string().max(300).nullish(),
   color: z.string().max(20).nullish(),
   /** Photographer credit for seed/stock images. */
-  credit: z.string().max(120).optional(),
+  credit: z.string().max(120).nullish(),
 })
 
 export const optionalUrl = z.union([z.literal(''), z.url('Enter a full link starting with https://').max(300)])
