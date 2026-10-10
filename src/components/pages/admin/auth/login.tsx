@@ -54,7 +54,10 @@ export default function Login({ redirect }: { redirect?: string }) {
           {(f) => <f.TextField label="Password" type="password" autoComplete="current-password" />}
         </form.AppField>
 
-        <div className="flex justify-end">
+        <div className="flex justify-between gap-4">
+          <a href="/admin/guide.html" target="_blank" rel="noreferrer" className="text-sm text-ash hover:text-paper">
+            Read the guide
+          </a>
           <Link to="/admin/forgot-password" className="text-sm text-ash hover:text-paper">
             Forgot password?
           </Link>

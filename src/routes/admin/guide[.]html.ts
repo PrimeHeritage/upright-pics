@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import guide from '@/content/owner-guide.html?raw'
-import { getAdmin } from '@/server/auth'
 
 // The guide file is authored without a document shell (it is also published
 // as a shareable page), so split its head and body parts here.
@@ -23,22 +22,21 @@ ${bodyPart}
 </body>
 </html>`
 
-/** Owner's guide, visible only to a signed-in admin. */
+/**
+ * Owner's guide. Public on purpose so it can be read while locked out (e.g. to
+ * find the password-reset steps); `noindex` and robots.txt keep it out of search.
+ */
 export const Route = createFileRoute('/admin/guide.html')({
   server: {
     handlers: {
-      GET: async () => {
-        const admin = await getAdmin()
-        if (!admin) {
-          return new Response(null, {
-            status: 302,
-            headers: { Location: '/admin/login?redirect=%2Fadmin%2Fguide.html', 'Cache-Control': 'private, no-store' },
-          })
-        }
-        return new Response(page, {
-          headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'private, no-store' },
-        })
-      },
+      GET: () =>
+        new Response(page, {
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'public, max-age=0, s-maxage=3600',
+            'X-Robots-Tag': 'noindex, nofollow',
+          },
+        }),
     },
   },
 })
