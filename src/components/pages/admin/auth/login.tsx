@@ -1,0 +1,64 @@
+import { Link, useRouter } from '@tanstack/react-router'
+
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { useAppForm } from '@/components/ui/custom/form'
+import { useSignIn } from '@/hooks/api/admin/auth'
+import { signInSchema } from '@/lib/schemas/auth'
+
+export default function Login({ redirect }: { redirect?: string }) {
+  const router = useRouter()
+  const signIn = useSignIn()
+
+  const form = useAppForm({
+    defaultValues: { email: '', password: '' },
+    validators: { onSubmit: signInSchema },
+    onSubmit: async ({ value }) => {
+      await signIn.mutateAsync(value)
+      // Only follow same-site admin redirects.
+      const target = redirect?.startsWith('/admin') ? redirect : '/admin'
+      await router.invalidate()
+      await router.navigate({ to: target })
+    },
+  })
+
+  return (
+    <>
+      <h1 className="font-display text-4xl">Welcome back</h1>
+      <p className="mt-3 text-ash">Sign in to update your website.</p>
+
+      <form
+        noValidate
+        className="mt-10 grid gap-5"
+        onSubmit={(e) => {
+          e.preventDefault()
+          void form.handleSubmit()
+        }}
+      >
+        {signIn.isError ? (
+          <Alert variant="destructive" className="border-destructive/40 bg-destructive/10">
+            <AlertDescription>{signIn.error.message}</AlertDescription>
+          </Alert>
+        ) : null}
+
+        <form.AppField name="email">
+          {(f) => <f.TextField label="Email" type="email" autoComplete="email" inputMode="email" />}
+        </form.AppField>
+        <form.AppField name="password">
+          {(f) => <f.TextField label="Password" type="password" autoComplete="current-password" />}
+        </form.AppField>
+
+        <div className="flex justify-end">
+          <Link to="/admin/forgot-password" className="text-sm text-ash hover:text-paper">
+            Forgot password?
+          </Link>
+        </div>
+
+        <form.AppForm>
+          <form.SubmitButton pendingLabel="Signing in…" className="h-11 w-full">
+            Sign in
+          </form.SubmitButton>
+        </form.AppForm>
+      </form>
+    </>
+  )
+}

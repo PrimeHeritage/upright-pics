@@ -14,8 +14,21 @@ import { Route as PrimaryIndexRouteImport } from './routes/_primary/index'
 import { Route as PrimaryAboutRouteImport } from './routes/_primary/about'
 import { Route as PrimaryContactRouteImport } from './routes/_primary/contact'
 import { Route as PrimaryServicesRouteImport } from './routes/_primary/services'
+import { Route as AdminDashboardRouteImport } from './routes/admin/_dashboard'
+import { Route as AdminForgotPasswordRouteImport } from './routes/admin/forgot-password'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin/reset-password'
 import { Route as PrimaryWorkIndexRouteImport } from './routes/_primary/work.index'
 import { Route as PrimaryWorkSlugRouteImport } from './routes/_primary/work.$slug'
+import { Route as AdminDashboardIndexRouteImport } from './routes/admin/_dashboard/index'
+import { Route as AdminDashboardAlbumsRouteImport } from './routes/admin/_dashboard/albums'
+import { Route as AdminDashboardCategoriesRouteImport } from './routes/admin/_dashboard/categories'
+import { Route as AdminDashboardContentRouteImport } from './routes/admin/_dashboard/content'
+import { Route as AdminDashboardInquiriesRouteImport } from './routes/admin/_dashboard/inquiries'
+import { Route as AdminDashboardPackagesRouteImport } from './routes/admin/_dashboard/packages'
+import { Route as AdminDashboardServicesRouteImport } from './routes/admin/_dashboard/services'
+import { Route as AdminDashboardSettingsRouteImport } from './routes/admin/_dashboard/settings'
+import { Route as AdminDashboardTestimonialsRouteImport } from './routes/admin/_dashboard/testimonials'
 
 const PrimaryRoute = PrimaryRouteImport.update({
   id: '/_primary',
@@ -41,6 +54,26 @@ const PrimaryServicesRoute = PrimaryServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => PrimaryRoute,
 } as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/_dashboard',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminForgotPasswordRoute = AdminForgotPasswordRouteImport.update({
+  id: '/admin/forgot-password',
+  path: '/admin/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/admin/reset-password',
+  path: '/admin/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrimaryWorkIndexRoute = PrimaryWorkIndexRouteImport.update({
   id: '/work/',
   path: '/work/',
@@ -51,22 +84,94 @@ const PrimaryWorkSlugRoute = PrimaryWorkSlugRouteImport.update({
   path: '/work/$slug',
   getParentRoute: () => PrimaryRoute,
 } as any)
+const AdminDashboardIndexRoute = AdminDashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardAlbumsRoute = AdminDashboardAlbumsRouteImport.update({
+  id: '/albums',
+  path: '/albums',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardCategoriesRoute =
+  AdminDashboardCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AdminDashboardRoute,
+  } as any)
+const AdminDashboardContentRoute = AdminDashboardContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardInquiriesRoute = AdminDashboardInquiriesRouteImport.update({
+  id: '/inquiries',
+  path: '/inquiries',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardPackagesRoute = AdminDashboardPackagesRouteImport.update({
+  id: '/packages',
+  path: '/packages',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardServicesRoute = AdminDashboardServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardSettingsRoute = AdminDashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
+const AdminDashboardTestimonialsRoute =
+  AdminDashboardTestimonialsRouteImport.update({
+    id: '/testimonials',
+    path: '/testimonials',
+    getParentRoute: () => AdminDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PrimaryIndexRoute
   '/about': typeof PrimaryAboutRoute
   '/contact': typeof PrimaryContactRoute
   '/services': typeof PrimaryServicesRoute
+  '/admin': typeof AdminDashboardRouteWithChildren
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
+  '/admin/albums': typeof AdminDashboardAlbumsRoute
+  '/admin/categories': typeof AdminDashboardCategoriesRoute
+  '/admin/content': typeof AdminDashboardContentRoute
+  '/admin/inquiries': typeof AdminDashboardInquiriesRoute
+  '/admin/packages': typeof AdminDashboardPackagesRoute
+  '/admin/services': typeof AdminDashboardServicesRoute
+  '/admin/settings': typeof AdminDashboardSettingsRoute
+  '/admin/testimonials': typeof AdminDashboardTestimonialsRoute
   '/work/': typeof PrimaryWorkIndexRoute
+  '/admin/': typeof AdminDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof PrimaryAboutRoute
   '/contact': typeof PrimaryContactRoute
   '/services': typeof PrimaryServicesRoute
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/': typeof PrimaryIndexRoute
   '/work/$slug': typeof PrimaryWorkSlugRoute
+  '/admin/albums': typeof AdminDashboardAlbumsRoute
+  '/admin/categories': typeof AdminDashboardCategoriesRoute
+  '/admin/content': typeof AdminDashboardContentRoute
+  '/admin/inquiries': typeof AdminDashboardInquiriesRoute
+  '/admin/packages': typeof AdminDashboardPackagesRoute
+  '/admin/services': typeof AdminDashboardServicesRoute
+  '/admin/settings': typeof AdminDashboardSettingsRoute
+  '/admin/testimonials': typeof AdminDashboardTestimonialsRoute
   '/work': typeof PrimaryWorkIndexRoute
+  '/admin': typeof AdminDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -74,29 +179,95 @@ export interface FileRoutesById {
   '/_primary/about': typeof PrimaryAboutRoute
   '/_primary/contact': typeof PrimaryContactRoute
   '/_primary/services': typeof PrimaryServicesRoute
+  '/admin/_dashboard': typeof AdminDashboardRouteWithChildren
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/_primary/': typeof PrimaryIndexRoute
   '/_primary/work/$slug': typeof PrimaryWorkSlugRoute
+  '/admin/_dashboard/albums': typeof AdminDashboardAlbumsRoute
+  '/admin/_dashboard/categories': typeof AdminDashboardCategoriesRoute
+  '/admin/_dashboard/content': typeof AdminDashboardContentRoute
+  '/admin/_dashboard/inquiries': typeof AdminDashboardInquiriesRoute
+  '/admin/_dashboard/packages': typeof AdminDashboardPackagesRoute
+  '/admin/_dashboard/services': typeof AdminDashboardServicesRoute
+  '/admin/_dashboard/settings': typeof AdminDashboardSettingsRoute
+  '/admin/_dashboard/testimonials': typeof AdminDashboardTestimonialsRoute
   '/_primary/work/': typeof PrimaryWorkIndexRoute
+  '/admin/_dashboard/': typeof AdminDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/contact' | '/services' | '/work/$slug' | '/work/'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/services'
+    | '/admin'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/admin/reset-password'
+    | '/work/$slug'
+    | '/admin/albums'
+    | '/admin/categories'
+    | '/admin/content'
+    | '/admin/inquiries'
+    | '/admin/packages'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/testimonials'
+    | '/work/'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/contact' | '/services' | '/' | '/work/$slug' | '/work'
+  to:
+    | '/about'
+    | '/contact'
+    | '/services'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/admin/reset-password'
+    | '/'
+    | '/work/$slug'
+    | '/admin/albums'
+    | '/admin/categories'
+    | '/admin/content'
+    | '/admin/inquiries'
+    | '/admin/packages'
+    | '/admin/services'
+    | '/admin/settings'
+    | '/admin/testimonials'
+    | '/work'
+    | '/admin'
   id:
     | '__root__'
     | '/_primary'
     | '/_primary/about'
     | '/_primary/contact'
     | '/_primary/services'
+    | '/admin/_dashboard'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/admin/reset-password'
     | '/_primary/'
     | '/_primary/work/$slug'
+    | '/admin/_dashboard/albums'
+    | '/admin/_dashboard/categories'
+    | '/admin/_dashboard/content'
+    | '/admin/_dashboard/inquiries'
+    | '/admin/_dashboard/packages'
+    | '/admin/_dashboard/services'
+    | '/admin/_dashboard/settings'
+    | '/admin/_dashboard/testimonials'
     | '/_primary/work/'
+    | '/admin/_dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PrimaryRoute: typeof PrimaryRouteWithChildren
+  AdminDashboardRoute: typeof AdminDashboardRouteWithChildren
+  AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminResetPasswordRoute: typeof AdminResetPasswordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -136,6 +307,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrimaryServicesRouteImport
       parentRoute: typeof PrimaryRoute
     }
+    '/admin/_dashboard': {
+      id: '/admin/_dashboard'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/forgot-password': {
+      id: '/admin/forgot-password'
+      path: '/admin/forgot-password'
+      fullPath: '/admin/forgot-password'
+      preLoaderRoute: typeof AdminForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reset-password': {
+      id: '/admin/reset-password'
+      path: '/admin/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_primary/work/': {
       id: '/_primary/work/'
       path: '/work'
@@ -149,6 +348,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/work/$slug'
       preLoaderRoute: typeof PrimaryWorkSlugRouteImport
       parentRoute: typeof PrimaryRoute
+    }
+    '/admin/_dashboard/': {
+      id: '/admin/_dashboard/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminDashboardIndexRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/albums': {
+      id: '/admin/_dashboard/albums'
+      path: '/albums'
+      fullPath: '/admin/albums'
+      preLoaderRoute: typeof AdminDashboardAlbumsRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/categories': {
+      id: '/admin/_dashboard/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminDashboardCategoriesRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/content': {
+      id: '/admin/_dashboard/content'
+      path: '/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof AdminDashboardContentRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/inquiries': {
+      id: '/admin/_dashboard/inquiries'
+      path: '/inquiries'
+      fullPath: '/admin/inquiries'
+      preLoaderRoute: typeof AdminDashboardInquiriesRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/packages': {
+      id: '/admin/_dashboard/packages'
+      path: '/packages'
+      fullPath: '/admin/packages'
+      preLoaderRoute: typeof AdminDashboardPackagesRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/services': {
+      id: '/admin/_dashboard/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminDashboardServicesRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/settings': {
+      id: '/admin/_dashboard/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminDashboardSettingsRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
+    '/admin/_dashboard/testimonials': {
+      id: '/admin/_dashboard/testimonials'
+      path: '/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminDashboardTestimonialsRouteImport
+      parentRoute: typeof AdminDashboardRoute
     }
   }
 }
@@ -174,8 +436,40 @@ const PrimaryRouteChildren: PrimaryRouteChildren = {
 const PrimaryRouteWithChildren =
   PrimaryRoute._addFileChildren(PrimaryRouteChildren)
 
+interface AdminDashboardRouteChildren {
+  AdminDashboardAlbumsRoute: typeof AdminDashboardAlbumsRoute
+  AdminDashboardCategoriesRoute: typeof AdminDashboardCategoriesRoute
+  AdminDashboardContentRoute: typeof AdminDashboardContentRoute
+  AdminDashboardInquiriesRoute: typeof AdminDashboardInquiriesRoute
+  AdminDashboardPackagesRoute: typeof AdminDashboardPackagesRoute
+  AdminDashboardServicesRoute: typeof AdminDashboardServicesRoute
+  AdminDashboardSettingsRoute: typeof AdminDashboardSettingsRoute
+  AdminDashboardTestimonialsRoute: typeof AdminDashboardTestimonialsRoute
+  AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+}
+
+const AdminDashboardRouteChildren: AdminDashboardRouteChildren = {
+  AdminDashboardAlbumsRoute: AdminDashboardAlbumsRoute,
+  AdminDashboardCategoriesRoute: AdminDashboardCategoriesRoute,
+  AdminDashboardContentRoute: AdminDashboardContentRoute,
+  AdminDashboardInquiriesRoute: AdminDashboardInquiriesRoute,
+  AdminDashboardPackagesRoute: AdminDashboardPackagesRoute,
+  AdminDashboardServicesRoute: AdminDashboardServicesRoute,
+  AdminDashboardSettingsRoute: AdminDashboardSettingsRoute,
+  AdminDashboardTestimonialsRoute: AdminDashboardTestimonialsRoute,
+  AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+}
+
+const AdminDashboardRouteWithChildren = AdminDashboardRoute._addFileChildren(
+  AdminDashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   PrimaryRoute: PrimaryRouteWithChildren,
+  AdminDashboardRoute: AdminDashboardRouteWithChildren,
+  AdminForgotPasswordRoute: AdminForgotPasswordRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminResetPasswordRoute: AdminResetPasswordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
